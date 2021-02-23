@@ -1,26 +1,21 @@
-import { Directive, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterViewInit } from "@angular/core";
 
 @Directive({
-  selector: '[appChangeText]'
+  selector: "[appChangeText]"
 })
 export class ChangeTextDirective implements AfterViewInit {
-
-  constructor(
-    private el: ElementRef,
-    private _renderer: Renderer2
-  ) { }
+  constructor(private el: ElementRef, private _renderer: Renderer2) {}
 
   ngAfterViewInit() {
+    const messageDom = this._renderer.selectRootElement("#message");
 
-    const messageDom = this._renderer.selectRootElement('#message');
-
-    this._renderer.listen(this.el.nativeElement, 'input', () => {
-
-      messageDom.innerHTML = '';
+    this._renderer.listen(this.el.nativeElement, "input", () => {
+      messageDom.innerHTML = "";
       const value = this.el.nativeElement.value;
 
-      if(value === 'Bere') {
-        messageDom.innerHTML = '<h2> <i class="fa fa-heart text-danger fa-3x"></i> hola berita mosa</h2>';
+      if (value === "CS") {
+        messageDom.innerHTML =
+          '<h2> <i class="fa fa-heart text-danger fa-3x"></i> Hello </h2>';
         return false;
       }
 
@@ -29,10 +24,12 @@ export class ChangeTextDirective implements AfterViewInit {
       }
 
       if (value.length >= 3) {
-        messageDom.innerHTML = '<i class="fa fa-times-circle text-danger p-1" aria-hidden="true"></i> maximum characters length is 3';
+        messageDom.innerHTML =
+          '<i class="fa fa-times-circle text-danger p-1" aria-hidden="true"></i> maximum characters length is 3';
         return false;
       }
-      messageDom.innerHTML = '<i class="fa fa-check-circle text-success p-1" aria-hidden="true"></i> good';
+      messageDom.innerHTML =
+        '<i class="fa fa-check-circle text-success p-1" aria-hidden="true"></i> good';
     });
   }
 }
